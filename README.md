@@ -1,5 +1,5 @@
 # Docs
-
+```mermaid
 flowchart TD
     A[Start] --> B{Is it?}
     B -->|Yes| C[OK]
