@@ -20,7 +20,7 @@ flowchart TB
                 QueryStore_Yes --> FoundBench
                 QueryStore --> | No | PlanCacheDMV[Use sys.dm_exec_query_stats to get<br> exec. stats of the code to <br>use it as a bench]
                 PlanCacheDMV --> FoundBench{Were you able to identify <br>the exec. stats?}
-            FoundBench --> | Yes | FoundBench_Yes[Double check exec. stats numbers with app <br>owner to confirm this pattern is expected <br>and define improvement expectations]
+            FoundBench --> | Yes | FoundBench_Yes[Double check exec. stats numbers with app <br>owner to confirm this pattern is expected <br>and set improvement expectations]
                 FoundBench_Yes --> ContinueOptimization
             FoundBench --> | No | Profiler_XE{"Can you run the process now <br>and capture exec. stats using <br>Profiler or a xEvent?"}
                 Profiler_XE --> | Yes or process runs often | Profiler_XE_Yes[Start a trace to capture the exec. stats<br> Make sure you've got permission to start the <br>trace and used the correct filters]
@@ -42,7 +42,7 @@ flowchart TB
             WhereToTestIt --> | No | TestInProd[Explain the client the risks<br> of doing optimization in prod <br>and ask for approval to move<br> forward]
         TestInProd --> GotApprovalToOptimizeInProd{Did you get approval <br>to work on high risk mode and <br>optimize the code in prod?}
         GotApprovalToOptimizeInProd --> | Yes | StartingOptimization[Continue with optimization]
-        GotApprovalToOptimizeInProd --> | No | GotApprovalToOptimizeInProd_No[link this to step...]
+        GotApprovalToOptimizeInProd --> | No | GotApprovalToOptimizeInProd_No[TODO:add steps to check <br>the t-sql...]
     StartingOptimization -->
     AppOrBDProblem{Based on total <br>process duration, is it <br>percentual of time spend <br>on SQL relevant?}
         AppOrBDProblem --> | Yes | IsolateSlowestStatement[Based on total process duration <br>and exec. stats, if possible, isolate the <br>most resource consuming t-sql <br>code at the <b>statement</b> level]
